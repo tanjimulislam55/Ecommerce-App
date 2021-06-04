@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import { ProductContainer, Navbar, Cart } from './components';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core';
+import { CartProvider } from './context/CartContext';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+const theme = createMuiTheme({
+    typography: {
+        fontFamily: 'Josefin Sans',
+        fontWeightLight: 400,
+        fontWeightRegular: 500,
+        fontWeightMedium: 600,
+        fontWeightBold: 700,
+    },
+});
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <CartProvider>
+          <Switch>
+            <Route exact path="/">
+              <ProductContainer />
+            </Route>
+            <Route exact path="/cart">
+              <Cart />
+            </Route>
+          </Switch>
+          <Navbar />
+        </CartProvider>
+      </ThemeProvider>
+    </BrowserRouter>
   );
 }
 
